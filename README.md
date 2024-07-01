@@ -33,7 +33,7 @@ The Air Pollution Monitor System measures the concentration of various gases in 
 - Breadboard and Jumper Wires
 
 ## Circuit Diagram
-![Circuit Diagram](images/circuit_diagram.png)
+![Circuit Diagram](Image/Circuit.jpg) 
 
 **ESP-01 Connections:**
 - Vcc -> 3.3V
