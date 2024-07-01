@@ -1,18 +1,13 @@
-//------- Import Library ----------//
 #include "ThingSpeak.h"
 #include <ESP8266WiFi.h>
 
-//------- WI-FI details ----------//
-char ssid[] = "Xav!er";             //SSID here
-char pass[] = "12345678";           // Passowrd here
-//--------------------------------//
+char ssid[] = "Xav!er";            
+char pass[] = "12345678";           
 
-//----------- Channel details ----------------//
-unsigned long Channel_ID = 1347787;       // Channel ID
-const int Field_1 = 1;                    // Don't change
-const int Field_2 = 2;                    // Don't change
-const char * myWriteAPIKey = "8UxxxxxxxxxxxxxOX"; //Your Thingspeak write API key
-//-------------------------------------------//
+unsigned long Channel_ID = 1347787;     
+const int Field_1 = 1;                 
+const int Field_2 = 2;                 
+const char * myWriteAPIKey = "8UxxxxxxxxxxxxxOX"; 
 
 int x;
 int y;
@@ -23,7 +18,7 @@ void setup()
   Serial.begin(115200);
 
   while (!Serial) {
-    ; // wait for serial port to connect. Needed for Leonardo native USB port only
+    ; 
   }
   
   WiFi.mode(WIFI_STA);
@@ -59,17 +54,14 @@ void internet()
 
 const byte numChars = 32;
 char receivedChars[numChars];
-char tempChars[numChars];        // temporary array for use when parsing
+char tempChars[numChars];        
 
-//============ variables to hold the parsed data ============//
 float value1 = 0.0;
 float value2 = 0.0;
 
 boolean newData = false;
 
-//========================================================== //
 
-//============
 
 void get_value() {
   if (Serial.available() > 0)
@@ -77,8 +69,7 @@ void get_value() {
     recvWithStartEndMarkers();
     if (newData == true) {
         strcpy(tempChars, receivedChars);
-            // this temporary copy is necessary to protect the original data
-            //   because strtok() used in parseData() replaces the commas with \0
+         
         parseData();
         showParsedData();
         newData = false;
@@ -89,8 +80,6 @@ void get_value() {
     get_value();
   }
 }
-
-//============
 
 void recvWithStartEndMarkers() {
     static boolean recvInProgress = false;
@@ -110,7 +99,7 @@ void recvWithStartEndMarkers() {
                 }
             }
             else {
-                receivedChars[ndx] = '\0'; // terminate the string
+                receivedChars[ndx] = '\0'; 
                 recvInProgress = false;
                 ndx = 0;
                 newData = true;
@@ -122,21 +111,19 @@ void recvWithStartEndMarkers() {
     }
 }
 
-//============
+void parseData() {     
 
-void parseData() {      // split the data into its parts
+    char * strtokIndx; 
 
-    char * strtokIndx; // this is used by strtok() as an index
+    strtokIndx = strtok(tempChars, ","); 
+    value1 = atof(strtokIndx);     
 
-    strtokIndx = strtok(tempChars, ","); // get the first part - the string
-    value1 = atof(strtokIndx);     // convert this part to an integer
-
-    strtokIndx = strtok(NULL, ",");    // this continues where the previous call left off
-    value2 = atof(strtokIndx);     // convert this part to a float
+    strtokIndx = strtok(NULL, ",");    
+    value2 = atof(strtokIndx);     
 
 }
 
-//============
+
 
 void showParsedData() {
     Serial.print("value1: ");
@@ -148,13 +135,11 @@ void showParsedData() {
 
 void upload()
 { 
-//========== set the fields with the values
   ThingSpeak.setField(Field_1, value1);
   ThingSpeak.setField(Field_2, value2);
   if (Serial.available() > 0)
   {  
      x = ThingSpeak.writeFields(Channel_ID,myWriteAPIKey);
-    //  int statusCode = ThingSpeak.getLastReadStatus();
      
      if (x == 200){
        Serial.print("Data Updated.");
@@ -167,6 +152,5 @@ void upload()
   else{
     Serial.print("Serial Pin Connection Error!!, retrying....");
   }
-//  value = "";
      delay(15000);
 }
