@@ -1,59 +1,3 @@
-/*****************************************************************
- * Board: Arduino Uno (ATMega2560)
- * Developed by: Ajay Bairwa    Email: yourfriend9014@gmail.com
- * 
- * Nodemcu-ESP8266 WiFi Module is used to connect to Internet 
- * and send data to https://thingspeak.com server 
- * 
- * Output is shown using GRAPH on thinkspeak server.
- *  
- * NOTE: 
- * Internal 10 bit ADC (A0) is used to read the Analog output of the Temperature Sensor.
-********************************************************************/
-/****************************************************************** 
- * 
- * PIN Diagram of ESP01: (This module works on 3.3v) (NOT 5v)
- * +---------------------------+
- * | |=| |=| |=|============== |
- * | | | | | | |    ANTENA     |
- * | | |=| |=| | Facing ur side|
- * | ========================= |
- * |                           |
- * | GND   GPIO0   GPIO2   RxD |
- * |  o      o      o       o  |
- * |                           |
- * |  o      o      o       o  |
- * | TxD   CH_PD    RST    Vcc |
- * +---------------------------+
- *
- * Connections for Communication:
- * ESP01   ->  Arduino
- * Vcc     ->  3.3V
- * GND     ->  GND
- * TxD     ->  Rx1 (Pin 10)
- * RxD     ->  Tx1 (Pin 11)
- * CH_PD   ->  3.3V
- * 
- * Serial Communication with PC through USB cable
- *****************************************************************/
-
- /****************************************************************
- * STEPS:
- * 1. Sign up at https://thingspeak.com
- * 2. Channels > New Channel > Update "Name" and "Field 1", "Field2" so on...-> Save Channel
- * 3. Click On API keys > Copy "Write API key"
- * 4. Make all the Connections to Arduino Mega board mentioned Above.
- * 5. Change Following in below written program.
- *    a. apiKey by above copied "Write API key" (in step 3)
- *    b. NOTE: ESP-01 is connected to wifi hotspot in a different approach using AT commands
- *       AT, AT+CWMODE=1, AT+CWJAP="BKS","sai123456", AT+CWJAP?
- * 6. Upload Program to Arduino Mega Board
- * 7. Open Arduino Serial Monitor on PC (Set Baud Rate to 9600 and set "Both NL & CR"
- * 8. Go to https://thingspeak.com and login  
- *    Channels > My Channels > Click on Channel Name (created in step 2) > Private View
- *    Here you can observe the Grapth of Temperature Vs Day.
- ****************************************************************/
-
 //---------------------------------------------------------------------------------------------------------------
 //                                                  LIBRARIES
 //---------------------------------------------------------------------------------------------------------------
@@ -140,15 +84,7 @@ void setup() {
       }
   }
 }
-  //------------------// Connection of Nodemcu-ESP8266 //------------------//
-//---------------------------------------------------------------------------------------------------------------
-//                                                  SETUP
-//---------------------------------------------------------------------------------------------------------------
 
-
-//---------------------------------------------------------------------------------------------------------------
-//                                               MAIN LOOP
-//---------------------------------------------------------------------------------------------------------------
 void loop() { 
   //========== MQ135 Sensor variable
   float sensor_volt;          //Define variable for sensor voltage 
@@ -229,11 +165,3 @@ void loop() {
    //------Check condition for buzzer and LED--------//
     
   //--------------------------------------------//
-
-
-
- 
-
-  // thingspeak free version needs 15-20 sec delay between every push
-//  delay(15000);                            // wait for 16sec
- }
