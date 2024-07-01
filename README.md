@@ -9,9 +9,7 @@ This project is an Air Pollution Monitoring System using Arduino Mega (ATMega256
 - [Circuit Diagram](#circuit-diagram)
 - [Installation](#installation)
 - [Usage](#usage)
-- [Code](#code)
 - [Contributing](#contributing)
-- [License](#license)
 
 ## Introduction
 The Air Pollution Monitor System measures the concentration of various gases in the air and provides real-time updates. The data is sent to the ThingSpeak server for visualization and analysis. The system also includes a buzzer and LEDs to indicate air quality status immediately.
@@ -76,24 +74,5 @@ The Air Pollution Monitor System measures the concentration of various gases in 
 5. Open the Serial Monitor (Set Baud Rate to 9600 and set "Both NL & CR").
 6. The system will connect to Wi-Fi and start sending data to ThingSpeak.
 
-## Code
-The code for the project is available in `air_pollution_monitor.ino`. The main functionalities include:
-- Reading data from MQ135 and MQ7 sensors.
-- Displaying data on the LCD.
-- Sending data to ThingSpeak.
-- Controlling LEDs and a buzzer based on air quality.
-
-```cpp
-// Code snippet for reading sensor data and sending it to ThingSpeak
-float sensor_volt = analogRead(gas_sensor) * (5.0 / 1024.0);
-float RS_gas = ((5.0 * 10.0) / sensor_volt) - 10.0;
-float ratio = RS_gas / R0;
-double ppm_log = (log10(ratio) - c) / m;
-double ppm = pow(10, ppm_log);
-
-// Send data to ThingSpeak
-Ser.print('<');
-Ser.print(ppm);
-Ser.print(',');
-Ser.print(ppm1);
-Ser.println('>');
+## Contributing
+Contributions are welcome! Please fork the repository and submit a pull request for any enhancements or bug fixes.
