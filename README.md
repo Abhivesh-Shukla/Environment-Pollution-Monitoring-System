@@ -55,7 +55,7 @@ The Air Pollution Monitor System measures the concentration of various gases in 
 ## Installation
 1. Clone the repository:
     ```bash
-    git clone https://github.com/yourusername/air-pollution-monitor.git
+    git clone https://github.com/Abhivesh-Shukla/Environment-Pollution-Monitoring-System.git
     ```
 2. Open the project in Arduino IDE.
 3. Install the required libraries:
